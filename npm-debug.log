@@ -1,0 +1,57 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '10ctl' ]
+2 info using npm@1.1.65
+3 info using node@v0.8.14
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose read json D:\Workspaces\workspace-sts-3.1_3.8\NPM_Proxy\package.json
+6 verbose read json D:\Workspaces\workspace-sts-3.1_3.8\NPM_Proxy\package.json
+7 verbose cache add [ '10ctl', null ]
+8 silly cache add name=undefined spec="10ctl" args=["10ctl",null]
+9 verbose parsed url { pathname: '10ctl', path: '10ctl', href: '10ctl' }
+10 silly lockFile f17f45c9-10ctl 10ctl
+11 verbose lock 10ctl C:\Users\weibl\AppData\Roaming\npm-cache\f17f45c9-10ctl.lock
+12 silly lockFile f17f45c9-10ctl 10ctl
+13 verbose addNamed [ '10ctl', '' ]
+14 verbose addNamed [ null, '' ]
+15 silly lockFile 662e217b-10ctl 10ctl@
+16 verbose lock 10ctl@ C:\Users\weibl\AppData\Roaming\npm-cache\662e217b-10ctl.lock
+17 silly addNameRange { name: '10ctl', range: '', hasData: false }
+18 verbose url raw 10ctl
+19 verbose url resolving [ 'http://localhost:6084/npm-proxy/', './10ctl' ]
+20 verbose url resolved http://localhost:6084/npm-proxy/10ctl
+21 info trying registry request attempt 1 at 16:55:06
+22 http GET http://localhost:6084/npm-proxy/10ctl
+23 http 400 http://localhost:6084/npm-proxy/10ctl
+24 verbose bad json Unsupported protocol! Only http & https allowed.
+25 error registry error parsing json
+26 silly registry.get cb [ 400,
+26 silly registry.get   { date: 'Fri, 01 Mar 2013 08:55:06 GMT',
+26 silly registry.get     connection: 'keep-alive',
+26 silly registry.get     'transfer-encoding': 'chunked' } ]
+27 silly lockFile 662e217b-10ctl 10ctl@
+28 error SyntaxError: Unexpected token U
+28 error Unsupported protocol! Only http & https allowed.
+28 error     at Object.parse (native)
+28 error     at RegClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:226:23)
+28 error     at Request.init.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:120:22)
+28 error     at Request.EventEmitter.emit (events.js:99:17)
+28 error     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:648:16)
+28 error     at Request.EventEmitter.emit (events.js:126:20)
+28 error     at IncomingMessage.Request.start.self.req.self.httpModule.request.buffer (C:\Program Files\nodejs\node_modules\npm\node_modules\request\main.js:610:14)
+28 error     at IncomingMessage.EventEmitter.emit (events.js:126:20)
+28 error     at IncomingMessage._emitEnd (http.js:366:10)
+28 error     at HTTPParser.parserOnMessageComplete [as onMessageComplete] (http.js:149:23)
+29 error If you need help, you may report this log at:
+29 error     <http://github.com/isaacs/npm/issues>
+29 error or email it to:
+29 error     <npm-@googlegroups.com>
+30 error System Windows_NT 6.1.7601
+31 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "10ctl"
+32 error cwd D:\Workspaces\workspace-sts-3.1_3.8\NPM_Proxy
+33 error node -v v0.8.14
+34 error npm -v 1.1.65
+35 error type unexpected_token
+36 verbose exit [ 1, true ]
