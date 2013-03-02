@@ -1,11 +1,15 @@
 // substitute for CouchDB
-// 1) use port :6084, connect to CoudDB at https://registry.npmjs.org
-// 2) use port :6084, connect to CoudDB at :5984
+// 1) use port :6084/npm-proxy/, connect to CoudDB registry database at https://registry.npmjs.org
+// 2) use port :6084/hosted/, connect to CoudDB at :5984
 
+//imports
 var url = require("url");
 var http = require("http");
 var https = require("https");
 
+//configuration
+
+//main
 http.createServer(function(request, response) {
 	var path = url.parse(request.url).path;
 
