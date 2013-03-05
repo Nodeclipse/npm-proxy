@@ -1,0 +1,22 @@
+{
+  "name": "npm-proxy",
+  "version": "0.0.5",
+  "description": "Proxy for NPM registry repository",
+  "main": "npm-proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PaulVI/npm-proxy.git"
+  },
+  "keywords": [
+    "npm",
+    "registry",
+    "proxy",
+    "repository"
+  ],
+  "author": "Paul Verest",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}

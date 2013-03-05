@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<!--NewPage-->
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+All usefull URLs for development in one window using iframes
+</TITLE>
+<SCRIPT type="text/javascript">
+    targetPage = "" + window.location.search;
+    if (targetPage != "" && targetPage != "undefined")
+        targetPage = targetPage.substring(1);
+    if (targetPage.indexOf(":") != -1)
+        targetPage = "undefined";
+    function loadFrames() {
+        if (targetPage != "" && targetPage != "undefined")
+             top.classFrame.location = top.targetPage;
+    }
+</SCRIPT>
+<NOSCRIPT>
+	NOSCRIPT
+</NOSCRIPT>
+</HEAD>
+<FRAMESET cols="40%,60%" title="" onLoad="top.loadFrames()">
+	<FRAME src="urls.md" name="packageListFrame" title="ULR list">
+	<FRAMESET rows="80%,20%" title="" onLoad="top.loadFrames()">
+		<FRAMESET rows="25%,25%,25%,25%" title="" onLoad="top.loadFrames()">
+			<FRAME src="http://localhost:5984/" name="packageListFrame" title="Local CouchDB">
+			<FRAME src="http://localhost:6084/hosted/" name="classFrame" title="Hosted Repository" scrolling="yes">
+			<FRAME src="http://localhost:6084/npm-mirror/" name="classFrame" title="Mirror Repository" scrolling="yes">
+			<FRAMESET rows="50%,50%" title="" onLoad="top.loadFrames()">
+				<FRAME src="http://localhost:6084/npm-proxy/" name="packageFrame" title="Proxy">
+				<FRAME src="http://localhost:6084/virtual/" name="packageFrame" title="Virtual registry">
+			</FRAMESET>
+		</FRAMESET>
+	</FRAMESET>	
+	<NOFRAMES>
+		NOFRAMES
+	</NOFRAMES>
+</FRAMESET>
+</HTML>

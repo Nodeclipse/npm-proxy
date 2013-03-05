@@ -1,10 +1,10 @@
-
+# URLs
 
 v001
 http://localhost:6084/npm-proxy/http://localhost:5984/_utils/
 
 
-# v002
+## v002
 
 
 http://localhost:5984/
@@ -32,4 +32,8 @@ http://localhost:6084/npm-proxy/
 	
 http://registry.npmjs.org/_utils/
 http://localhost:6084/npm-proxy//_utils/
--> will show HTML, but it is not functional because it is not server level, but database level.	
+-> will show HTML, but it is not functional because it is not server level, but database level.
+
+
+
+http://localhost:6084/npm-proxy/cached/

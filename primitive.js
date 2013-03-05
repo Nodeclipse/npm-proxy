@@ -1,7 +1,9 @@
 var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end(JSON.stringify(req) );
+  //console.log(JSON.stringify(req) ); //TypeError: Converting circular structure to JSON
+  //res.end(JSON.stringify(req) );
   console.log(req);
+  res.end("OK");
 }).listen(1337, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:1337/');
