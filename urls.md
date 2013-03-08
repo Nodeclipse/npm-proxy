@@ -37,3 +37,20 @@ http://localhost:6084/npm-proxy//_utils/
 
 
 http://localhost:6084/npm-proxy/cached/
+
+## v005
+
+http://localhost:6084/hosted/
+http://localhost:6084/npm-mirror/
+http://localhost:6084/npm-proxy/
+http://localhost:6084/cached/
+http://localhost:6084/virtual/
+
+## v006
+
+http://localhost:5984/npm2_cashed/_all_docs
+http://localhost:5984/_utils/database.html?npm2_cashed
+
+http://localhost:5984/npm2_cashed/_active_tasks
+
+http://localhost:5984/_utils/index.html

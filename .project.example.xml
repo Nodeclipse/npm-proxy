@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>npm-proxy</name>
+	<comment>This is example of Eclipse .project file, that is used during development</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>snippets/start-couchdb.bat</name>
+			<type>1</type>
+			<location>D:/Program Files (x86)/Apache CouchDB/bin/couchdb.bat</location>
+		</link>
+		<link>
+			<name>snippets/start-cmd.bat</name>
+			<type>1</type>
+			<location>C:/Users/weibl/Documents/GitHub/npm-proxy/start-cmd.bat</location>
+		</link>
+		<link>
+			<name>snippets/start-npm-proxy.bat</name>
+			<type>1</type>
+			<location>C:/Users/weibl/Documents/GitHub/npm-proxy/start-npm-proxy.bat</location>
+		</link>
+	</linkedResources>
+</projectDescription>

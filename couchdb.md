@@ -28,14 +28,16 @@ At the time of writing, CouchDB doesn’t remember continuous replications over 
 
 CouchDB 1.2 ships with a new replicator implementation.
 
-TODO
 http://wiki.apache.org/couchdb/Replication
 http://wiki.apache.org/couchdb/How_to_replicate_a_database  
+http://wiki.apache.org/couchdb/Frequently_asked_questions#how_replication
 
 Command list
 /_active_tasks
 /_utils
 /_design/
+
+/_all_docs
 
 ---
 
@@ -59,3 +61,38 @@ http://isaacs.iriscouch.com/_utils/database.html?registry
 
 http://isaacs.iriscouch.com/_utils/document.html?registry/10tcl
 http://isaacs.iriscouch.com/registry/10tcl
+
+
+----
+
+
+npm-www\dev\replicate.js
+
+// first sync up the design docs, since this is the most important
+// thing for the dev server starting up properly.
+var ddocs =
+  [ 'registry/_design/app',
+    'registry/_design/ghost',
+    'registry/_design/scratch' ]
+function replicateDdocs () {
+  var ddoc = ddocs.pop()
+  if (!ddoc) return replicatePackages()
+  request({ url: 'http://isaacs.iriscouch.com/' + ddoc, json: true }, then)
+  function then (er, res, body) {
+    if (er) throw er
+    if (res.statusCode !== 200) {
+      throw new Error('wtf?\n' + JSON.stringify([res.statusCode, body]))
+    }
+    request.put({ url: 'http://admin:admin@localhost:15984/' + ddoc +
+                       '?new_edits=false', body: body, json: true }, then2)
+  }
+  function then2 (er, res, body) {
+    if (er) throw er
+    if (res.statusCode !== 201) {
+      throw new Error('wtf?\n' + JSON.stringify([res.statusCode, body]))
+    }
+    console.error(body)
+    replicateDdocs()
+  }
+}
+
