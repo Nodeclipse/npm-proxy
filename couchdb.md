@@ -1,11 +1,16 @@
+
+
+
 # CouchDB notes
 
+These all are links to Registry:
+<code>
 http://isaacs.iriscouch.com/registry
 http://registry.npmjs.org:5984/registry
 http://registry.npmjs.org
 https://registry.npmjs.org
 http://isaacs.ic.ht/registry (said on https://github.com/isaacs/npmjs.org#installing)
-
+</code>
 
 
 ## Replication 

@@ -38,9 +38,13 @@ If you want only to use it, then bookmark (Ctrl+D) and/or star it now and return
 	- [ ] <code>npm install npm-proxy</code> // Help on this needed!
 	- (Optionally) configure server URL, port, databases etc. (Defaults are http://localhost:6084/cached/, )
 2. Run via <code>node npm-proxy.js</code>		
-2. Point npm to use NPM-Proxy server.  
+2. Point npm to use NPM-Proxy server:  
 	<code>npm config list</code>  
 	<code>npm config set registry=http://localhost:6084/cached/</code>
+	(Later you can use <code>npm config del registry</code> to reset to default)  
+	or  
+	Use the <code>--registry</code> option every time:  
+	<code>npm --registry http://localhost:6084/cached/ install packagename</code> 
 	
 Now your npm requests go through npm-proxy.	
 
