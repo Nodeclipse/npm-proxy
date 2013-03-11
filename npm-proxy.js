@@ -51,6 +51,7 @@ for (var i = 0; i < dbs.length; i++)
 	});
 	req.end();
 }
+//TODO clone _design docs from Registry.
 
 //main
 http.createServer(function(request, response) {
@@ -61,8 +62,8 @@ http.createServer(function(request, response) {
 		//case 1
 		response.writeHead(200);
 		response.write(npm_proxy_server_name+' is running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ ');
-		response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_proxy);
-		response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
+		//response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_proxy);
+		response.write('<br> Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
 		//response.end('Missing /npm-proxy/ or /hosted/ path!');
 		response.end();
 		return;
