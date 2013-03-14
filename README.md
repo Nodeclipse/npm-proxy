@@ -17,15 +17,18 @@ Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.h
 
 Registry as on March 11th 2013 is 36G of data in 25k projects. (Just navigate to <code>https://registry.npmjs.org/</code>)  
 Most development team don't need 99% of those packages, but quick & reliable access to those being used. 
-Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) is clone Registry into new Repository (using continuous replication). This however creates additional pressure on Registry server, 
-and on slow channels can't be finished within one session. But the most important every such attempt makes Registry even slower.
+Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) 
+is clone Registry into new Repository (using continuous replication).  
+On slow channels replication can't be finished within one session / one attempt. 
+But the most important is that every such attempt makes Registry even slower, as ongoing replication creates additional pressure on Registry server 
+and uses the same slow channel.
 
 ## Status 
 
 This is work in progress. (Version 0.0.6)
 Now it is just ideas, some materials and occasionally failing code.. 
 
-Please contact Paul Verest via skype <code>pverest</code> or call <code>+86 187 01029146</code>, if you are interested.
+Please contact Paul Verest via skype <code>pverest</code>, email ![email](public/weibl-funshion-com2.PNG) or call <code>+86 187 01029146</code>, if you are interested.
 
 ## Usage
 
