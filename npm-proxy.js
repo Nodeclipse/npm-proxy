@@ -51,7 +51,7 @@ for (var i = 0; i < dbs.length; i++)
 	});
 	req.end();
 }
-//TODO clone _design docs from Registry.
+//TODO clone _design docs from Registry
 
 //main
 http.createServer(function(request, response) {
