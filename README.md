@@ -51,14 +51,17 @@ If you want only to use it, then bookmark (Ctrl+D) and/or star it now and return
 	
 Now your npm requests go through npm-proxy.	
 
+![diagram.png](diagram.png)
+
 ## Developing
 
 0. Please [contact](#status) first. Notes are not full. I present what I know with pleasure.
 1. There is '.project.example.xml' file with example how to configure comfy link in Eclise IDE.   
+	This way you can start CouchDB from within Eclipse IDE.
 1. Start CouchDB.  
 	GUI environment (like Windows) is recommended. Run 'couchdb.bat' to launch also Erlang emulator, where you can track requests to CouchDB.  
 ![Erlang_emulator](public/Erlang_emulator.png)
-2. CouchDB Futon UI can be useful <code>http://localhost:5984/_utils/index.html</code>
+2. CouchDB Futon UI can be very useful. Open <code>http://localhost:5984/_utils/index.html</code>
 2. main file is 'npm-proxy.js'. Run it with 'node npm-proxy.js' or via start-npm-proxy.bat.
 
 ### Ideas
