@@ -1,4 +1,6 @@
+<!--
 [npm-proxy](https://github.com/PaulVI/npm-proxy/)
+-->
 
 # NPM Proxy Server ( NPS ? )
 
@@ -6,9 +8,11 @@ Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.h
 
 ## Dictionary
 
-[**Repository**](http://en.wikipedia.org/wiki/Software_repository) is [CouchDB](http://couchdb.apache.org/) database that contains Nodejs modules/packages.  
+[**Repository**](http://en.wikipedia.org/wiki/Software_repository) is [CouchDB](http://couchdb.apache.org/)
+ database that contains Nodejs modules/packages.  
 **Registry** is main repository.  
-[**Proxy**](http://en.wikipedia.org/wiki/Proxy_server) is software that acts as an intermediary for requests from clients seeking resources from other servers.  
+[**Proxy**](http://en.wikipedia.org/wiki/Proxy_server) is software that acts
+ as an intermediary for requests from clients seeking resources from other servers.  
 **Clone** is a copy of Registry.   
 **Mirror** repository is synchronized with Registry using CouchDB Replication feature.  
 [**Cached**](http://en.wikipedia.org/wiki/Cache_%28computing%29) repository is updated from other repository (e.g. Registry) on per request basis.  
@@ -28,7 +32,8 @@ and uses the same slow channel.
 This is work in progress. (Version 0.0.6)
 Now it is just ideas, some materials and occasionally failing code.. 
 
-Please contact Paul Verest via skype <code>pverest</code>, email ![email](public/weibl-funshion-com2.PNG) or call <code>+86 187 01029146</code>, if you are interested.
+Please contact Paul Verest via skype <code>pverest</code>, email ![email](public/weibl-funshion-com2.PNG)
+ or call <code>+86 187 01029146</code>, if you are interested.
 
 ## Usage
 
@@ -36,7 +41,8 @@ If you want only to use it, then bookmark (Ctrl+D) and/or star it now and return
 
 0. Install [CouchDB server](http://couchdb.apache.org/#download).
 	There is quick installer for Windows since version 1.2  
-	For Linux [Apache CouchDB wiki](http://wiki.apache.org/couchdb/Installing_on_Ubuntu) suggest to use [build-couchdb](https://github.com/iriscouch/build-couchdb)
+	For Linux [Apache CouchDB wiki](http://wiki.apache.org/couchdb/Installing_on_Ubuntu)
+	 suggest to use [build-couchdb](https://github.com/iriscouch/build-couchdb)
 1. Install NPM-Proxy server (this).
 	- [ ] <code>npm install npm-proxy</code> // Help on this needed!
 	- (Optionally) configure server URL, port, databases etc. (Defaults are http://localhost:6084/cached/, )
@@ -64,12 +70,26 @@ Now your npm requests go through npm-proxy.
 2. CouchDB Futon UI can be very useful. Open <code>http://localhost:5984/_utils/index.html</code>
 2. main file is 'npm-proxy.js'. Run it with 'node npm-proxy.js' or via start-npm-proxy.bat.
 
+## Testing
+
+1. Start CouchDB, npm-proxy (see [above](http://#developing))
+2. Open [CouchDB Futon UI](http://localhost:5984/_utils/), see databases content.
+3. Select one package that you don't have from [Most Depended-upon Packages list](https://npmjs.org/browse/depended).
+ For example <code>optimist</code>
+4. Navigate to <code>http://localhost:6084/cached/optimist</code>.
+5. NPS start replication. See status at <code>http://localhost:5984/_utils/status.html</code>.
+6. When replication finishes, content at <code>http://localhost:6084/cached/optimist</code>
+ and <code>http://localhost:6084/cached/optimist</code> nad <code>http://registry.npmjs.org/optimist</code>
+ must be the same.
+7. See also in Futon <code>http://localhost:5984/_utils/document.html?npm2_cashed/optimist</code>
+   
 ### Ideas
 
 * Use CouachApp to run app (http://couchapp.org/page/index)
  
 * use Most Depended-upon Packages list https://npmjs.org/browse/depended  
-[CouchDB: Is it possible to control order of replication?](http://stackoverflow.com/questions/15285520/couchdb-is-it-possible-to-control-order-of-replication)
+[CouchDB: Is it possible to control order of replication?](http://stackoverflow.com/questions/15285520/couchdb
+-is-it-possible-to-control-order-of-replication)
 
 * [add your idea]
  

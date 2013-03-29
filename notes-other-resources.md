@@ -1,3 +1,11 @@
+# Resources
+
+## Main
+   
+[npm(1) -- node package manager](https://github.com/isaacs/npm)
+[The new npmjs.org website](https://github.com/isaacs/npm-www)   
+
+## Blog articles how to setup Registry clone
 
 Setting up a private NPM repository
 Posted on January 23, 2012 by admin	
