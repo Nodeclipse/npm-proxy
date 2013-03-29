@@ -70,6 +70,7 @@ Now your npm requests go through npm-proxy.
 3. CouchDB Futon UI can be very useful. Open <code>http://localhost:5984/_utils/index.html</code>
 4. main file is 'npm-proxy.js'. Run it with 'node npm-proxy.js' or via start-npm-proxy.bat.
 5. [Mozilla Firefox add-on JsonShow](https://addons.mozilla.org/en-US/firefox/addon/jsonshow) is highly recommended to see JSON in human friendly way.
+	Press Ctrl+Q after installation at any URL to see it as formated and colorized JSON tree.	
 
 ![Firefox-addons-for-JSON-After-CtrlQ.PNG](Pictures/Firefox-addons-for-JSON-After-CtrlQ.PNG) 
 
