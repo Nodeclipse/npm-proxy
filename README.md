@@ -6,6 +6,8 @@
 
 Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.html) [registry](https://npmjs.org) repository.
 
+HELP NEEDED!
+
 ## Dictionary
 
 [**Repository**](http://en.wikipedia.org/wiki/Software_repository) is [CouchDB](http://couchdb.apache.org/)
