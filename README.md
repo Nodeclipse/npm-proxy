@@ -21,7 +21,7 @@ HELP NEEDED!
 
 ## Problem addressed
 
-Registry as on March 11th 2013 is 36G of data in 25k projects. (Just navigate to <code>https://registry.npmjs.org/</code>)  
+Registry as on April 22th 2013 is 41G of data in 28k projects. (Just navigate to <code>https://registry.npmjs.org/</code>)  
 Most development team don't need 99% of those packages, but quick & reliable access to those being used. 
 Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) 
 is clone Registry into new Repository (using continuous replication).  
