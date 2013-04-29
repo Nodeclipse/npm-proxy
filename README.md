@@ -6,8 +6,6 @@
 
 Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.html) [registry](https://npmjs.org) repository.
 
-HELP NEEDED!
-
 ## Dictionary
 
 [**Repository**](http://en.wikipedia.org/wiki/Software_repository) is [CouchDB](http://couchdb.apache.org/)
@@ -36,6 +34,8 @@ Now it is just ideas, some materials and occasionally failing code..
 
 Please contact Paul Verest via skype <code>pverest</code>, email ![email](public/weibl-funshion-com2.PNG)
  or call <code>+86 187 01029146</code>, if you are interested.
+ 
+Come to [Coding Sunday in Beijing](http://www.meetup.com/BeijingSoftwareCraftsmanship/events/116554072) 
 
 ## Usage
 
