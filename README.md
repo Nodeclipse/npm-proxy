@@ -27,6 +27,8 @@ On slow channels replication can't be finished within one session / one attempt.
 But the most important is that every such attempt makes Registry even slower, as ongoing replication creates additional pressure on Registry server 
 and uses the same slow channel.
 
+[Commercial alternative, that uses different approach](http://blog.strongloop.com/whats-new-in-strong-loop-node-beta-3-private-repositories/)
+
 ## Status 
 
 This is work in progress. (Version 0.0.6)
