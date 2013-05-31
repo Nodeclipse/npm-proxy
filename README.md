@@ -20,7 +20,7 @@ Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.h
 ## Problem addressed
 
 Registry as of May 20th 2013 is 44G of data in 30k projects. (Just navigate to <code>https://registry.npmjs.org/</code>)  
-Most development team don't need 99% of those packages, but quick & reliable access to those being used. 
+Most development teams don't need 99% of those packages, but quick & reliable access to those being used. 
 Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) 
 is clone Registry into new Repository (using continuous replication).  
 On slow channels replication can't be finished within one session / one attempt. 
