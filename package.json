@@ -1,6 +1,6 @@
 {
   "name": "npm-proxy",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Proxy for NPM registry repository",
   "main": "nps.js",
   "scripts": {

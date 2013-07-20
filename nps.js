@@ -62,9 +62,9 @@ http.createServer(function(request, response) {
 			&& path.indexOf(path_proxy) && path.indexOf(path_virtual) ) {
 		//case 1
 		response.writeHead(200);
-		response.write(npm_proxy_server_name+' is running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ ');
+		response.write(npm_proxy_server_name+' is running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ \n\n');
 		//response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_proxy);
-		response.write('<br> Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
+		response.write('Main CouchDB database is at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
 		//response.end('Missing /npm-proxy/ or /hosted/ path!');
 		response.end();
 		return;
@@ -147,6 +147,7 @@ http.createServer(function(request, response) {
 		var couchdbRequest = protocol.request(options, function(couchdbResponse) {			
 			console.log('STATUS: ' + couchdbResponse.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse.headers));
 			if (mode_cached !== true){
+				console.log('response: forward for '+resource_path+' ...');
 				//case 2 - answering with CouchDB response
 				response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
 				couchdbResponse.on("data", response.write.bind(response)); 
@@ -157,6 +158,7 @@ http.createServer(function(request, response) {
 			}else{
 				if (couchdbResponse.statusCode !== 404){
 					//TODO check if there is update
+					console.log('response: Cache hit for '+resource_path+' ...');
 					//case 2 - answering with CouchDB response
 					response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
 					couchdbResponse.on("data", response.write.bind(response)); 
