@@ -2,13 +2,13 @@
   "name": "npm-proxy",
   "version": "0.0.5",
   "description": "Proxy for NPM registry repository",
-  "main": "npm-proxy.js",
+  "main": "nps.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/funshion/npm-proxy.git"
+    "url": "https://github.com/Nodeclipse/npm-proxy.git"
   },
   "keywords": [
     "npm",
