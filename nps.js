@@ -7,13 +7,14 @@ var npm_proxy_server_name = 'Node Package Server v0.1.0';
 var npm_proxy_server_URL = 'localhost';
 var npm_proxy_server_port = 6084;
 var CouchDB_server_URL = 'localhost';
+var couchDB_server_port = 5984;
 
 var path_cached = "/nps-cached/";	// cached from registry - main mode
 var path_hosted = "/nps-hosted/";
 var path_mirror = "/nps-mirror/";	// synchronized with registry using CouchDB Replication feature
 var path_proxy = "/nps-proxy/"; 	// proxied access to registry - can be used while developing
 var path_virtual = "/virtual/";		// combines several repositories
-var paths = [path_hosted,path_mirror,path_proxy,path_cached,path_virtual];
+var paths = [path_cached,path_hosted,path_mirror,path_proxy,path_virtual];
 
 // CouchDB db name can't contain '-'
 var db_cached = "nps_cashed";
@@ -36,7 +37,7 @@ for (var i = 0; i < dbs.length; i++)
 	var db_name = dbs[i];
 	var options = {
 	  hostname: CouchDB_server_URL,
-	  port: 5984,
+	  port: couchDB_server_port,
 	  path:'/'+db_name,
 	  method: 'PUT'
 	};
@@ -55,16 +56,19 @@ for (var i = 0; i < dbs.length; i++)
 //TODO clone _design docs from Registry
 
 //main
-http.createServer(function(request, response) {
+var nps = http.createServer(function(request, response) {
 	var path = url.parse(request.url).path;
 
 	if (path.indexOf(path_cached) && path.indexOf(path_hosted) && path.indexOf(path_mirror) 
 			&& path.indexOf(path_proxy) && path.indexOf(path_virtual) ) {
 		//case 1
 		response.writeHead(200);
-		response.write(npm_proxy_server_name+' is running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ \n\n');
+		response.write(npm_proxy_server_name+' is running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ \n');
+		response.write('CouchDB is at http://'+CouchDB_server_URL+':'+couchDB_server_port+'/ \n');
+		response.write('CouchDB Futon UI is at http://'+CouchDB_server_URL+':'+couchDB_server_port+'/_utils/ \n\n');
+
+		response.write('Main CouchDB database is '+db_cached+'at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
 		//response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_proxy);
-		response.write('Main CouchDB database is at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
 		//response.end('Missing /npm-proxy/ or /hosted/ path!');
 		response.end();
 		return;
@@ -145,7 +149,7 @@ http.createServer(function(request, response) {
 		// http://nodejs.org/api/http.html#http_http_request_options_callback
 		// couchdbRequest is request to couchDB (local or remote)
 		var couchdbRequest = protocol.request(options, function(couchdbResponse) {			
-			console.log('STATUS: ' + couchdbResponse.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse.headers));
+			console.log('couchdbResponse STATUS: ' + couchdbResponse.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse.headers));
 			if (mode_cached !== true){
 				console.log('response: forward for '+resource_path+' ...');
 				//case 2 - answering with CouchDB response
@@ -158,7 +162,7 @@ http.createServer(function(request, response) {
 			}else{
 				if (couchdbResponse.statusCode !== 404){
 					//TODO check if there is update
-					console.log('response: Cache hit for '+resource_path+' ...');
+					console.log('response: Cache hit for '+resource_path);
 					//case 2 - answering with CouchDB response
 					response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
 					couchdbResponse.on("data", response.write.bind(response)); 
@@ -167,6 +171,8 @@ http.createServer(function(request, response) {
 						response.end();
 					});					
 				}else{//couchdbResponse.statusCode == 404
+					// IDEA can I get response from Registry, give to client and in the same time write to db, i.e. archive that without replication?
+					
 					console.log('REP Starting replication '+resource_path+' ...');
 					
 					//replication
@@ -217,5 +223,15 @@ http.createServer(function(request, response) {
 		request.on("end", couchdbRequest.end.bind(couchdbRequest)); 
 	//}
 }).listen(npm_proxy_server_port);
+
+nps.on('error(nps)', function(err) {
+	  // handle async errors here
+	console.log('ERROR: '+JSON.stringify(err));
+});
+
+//http.on('error(http)', function(err) {
+//	  // handle async errors here
+//	console.log('ERROR: '+JSON.stringify(err));
+//});
 
 console.log(npm_proxy_server_name+' running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ ');
