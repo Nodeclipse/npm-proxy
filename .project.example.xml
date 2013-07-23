@@ -10,17 +10,17 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>snippets/start-couchdb.bat</name>
+			<name>linkedResources/start-couchdb.bat</name>
 			<type>1</type>
 			<location>D:/Program Files (x86)/Apache CouchDB/bin/couchdb.bat</location>
 		</link>
 		<link>
-			<name>snippets/start-cmd.bat</name>
+			<name>linkedResources/start-cmd.bat</name>
 			<type>1</type>
 			<location>C:/Users/weibl/Documents/GitHub/npm-proxy/start-cmd.bat</location>
 		</link>
 		<link>
-			<name>snippets/start-npm-proxy.bat</name>
+			<name>linkedResources/start-npm-proxy.bat</name>
 			<type>1</type>
 			<location>C:/Users/weibl/Documents/GitHub/npm-proxy/start-npm-proxy.bat</location>
 		</link>

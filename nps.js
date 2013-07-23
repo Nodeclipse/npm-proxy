@@ -2,7 +2,7 @@
 
 //configuration {servers, paths and database names}
 //var registry_URL = "http://registry.npmjs.org";
-var registry_URL = "http://isaacs.iriscouch.com/registry/";
+var registry_URL = "http://isaacs.iriscouch.com/registry/"; // use HTTP URL
 var npm_proxy_server_name = 'Node Package Server v0.1.0';
 var npm_proxy_server_URL = 'localhost';
 var npm_proxy_server_port = 6084;
@@ -17,7 +17,7 @@ var path_virtual = "/virtual/";		// combines several repositories
 var paths = [path_cached,path_hosted,path_mirror,path_proxy,path_virtual];
 
 // CouchDB db name can't contain '-'
-var db_cached = "nps_cashed";
+var db_cached = "nps_cached";
 var db_hosted = "nps_hosted";
 var db_mirror = "nps_mirror";
 
@@ -42,11 +42,15 @@ for (var i = 0; i < dbs.length; i++)
 	  method: 'PUT'
 	};
 	var req = http.request(options, function(res) {
-	  console.log('STATUS: ' + res.statusCode+' HEADERS: ' + JSON.stringify(res.headers));
-	  res.setEncoding('utf8');
-	  res.on('data', function (chunk) {
-	    console.log('BODY: ' + chunk);
-	  });
+//		if (res.statusCode == 412) {
+//			console.log(this.options.path + ' already exists.');
+//			return;
+//		}
+		console.log('STATUS: ' + res.statusCode + ' HEADERS: '+ JSON.stringify(res.headers));
+		res.setEncoding('utf8');
+		res.on('data', function(chunk) {
+			console.log('BODY: ' + chunk);
+		});
 	});
 	req.on('error', function(e) {
 	  console.log('Problem while creating database '+db_name+' : ' + e.message);
@@ -67,10 +71,11 @@ var nps = http.createServer(function(request, response) {
 		response.write('CouchDB is at http://'+CouchDB_server_URL+':'+couchDB_server_port+'/ \n');
 		response.write('CouchDB Futon UI is at http://'+CouchDB_server_URL+':'+couchDB_server_port+'/_utils/ \n\n');
 
-		response.write('Main CouchDB database is '+db_cached+'at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
+		response.write('Main CouchDB database is '+db_cached+' at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_cached);
 		//response.write('<br>Try http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+path_proxy);
 		//response.end('Missing /npm-proxy/ or /hosted/ path!');
 		response.end();
+		console.log('Saying hello for path '+path);
 		return;
 	}	
 	//} else {
@@ -202,8 +207,10 @@ var nps = http.createServer(function(request, response) {
 							  response.writeHead(couchdbResponse2.statusCode, couchdbResponse2.headers);
 							  couchdbResponse2.on("data", response.write.bind(response)); 
 							  couchdbResponse2.on("end", function() {
-								response.addTrailers(couchdbResponse2.trailers);
-								response.end();
+								  console.log('couchdbResponse2 end');
+								  // TODO do we need?
+								  //response.addTrailers(couchdbResponse2.trailers);
+								  response.end();
 								
 							  });							  
 						  });//couchdbRequest2					  
@@ -229,9 +236,14 @@ nps.on('error(nps)', function(err) {
 	console.log('ERROR: '+JSON.stringify(err));
 });
 
+nps.on('close', function(err) {
+	console.log('NPS server is closed');
+});
+
 //http.on('error(http)', function(err) {
 //	  // handle async errors here
 //	console.log('ERROR: '+JSON.stringify(err));
 //});
 
 console.log(npm_proxy_server_name+' running at http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/ ');
+console.log('Go to http://'+npm_proxy_server_URL+':'+npm_proxy_server_port+'/hello to see current configuration.\n');
