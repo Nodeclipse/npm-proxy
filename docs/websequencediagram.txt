@@ -1,0 +1,15 @@
+Text for http://www.websequencediagrams.com
+
+title NPS Sequence
+
+npm->NPS: request for module
+NPS->local CouchDB: request for module
+local CouchDB->NPS: reply
+NPS->npm: if module exists, reply with it
+NPS->local CouchDB: if module doesn't exists, send replication request
+local CouchDB->+Registry: replicate module
+Registry-->-local CouchDB: notify
+local CouchDB->NPS: notify
+NPS->local CouchDB: request for newly received module
+local CouchDB->NPS: reply
+NPS->npm: reply with newly received module
