@@ -72,7 +72,8 @@ Now your npm requests go through npm-proxy.
 	GUI environment (like Windows) is recommended. Run 'couchdb.bat' to launch also Erlang emulator, where you can track requests to CouchDB.  
 ![Erlang_emulator](public/Erlang_emulator.png)
 3. CouchDB Futon UI can be very useful. Open <code>http://localhost:5984/_utils/index.html</code>
-4. main file is 'npm-proxy.js'. Run it with 'node npm-proxy.js' or via start-npm-proxy.bat.
+4. main file is 'nps.js'. Run it with `node nps.js`.
+   Recommended is node-dev: install with `npm install -g node-dev` ; run with `node-dev npm` .
 5. [Mozilla Firefox add-on JsonShow](https://addons.mozilla.org/en-US/firefox/addon/jsonshow) is highly recommended to see JSON in human friendly way.
 	Press Ctrl+Q after installation at any URL to see it as formated and colorized JSON tree.	
 

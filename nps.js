@@ -1,4 +1,4 @@
-// NPM-Proxy by Paul Verest, March 2013
+// Node Package Server (NPS) by Paul Verest, 2013
 
 //configuration {servers, paths and database names}
 //var registry_URL = "http://registry.npmjs.org";
@@ -137,15 +137,16 @@ var nps = http.createServer(function(request, response) {
 		}
 
 		console.log(
-				//"->  host: "+options.host
-	            " hostname: "+options.hostname
-	            +" port: "+options.port
-	            +" method: "+ options.method
-	            +" path: "+ options.path
-				+" resource_path: "+resource_path				
-	            +" headers: "+ options.headers
-	            //+" auth: "+ options.auth
-	            );
+			"request"
+			//"->  host: "+options.host
+	        +" hostname: "+options.hostname
+	        +" port: "+options.port
+	        +" method: "+ options.method
+	        +" path: "+ options.path
+			+" resource_path: "+resource_path
+	        +" headers: "+ options.headers
+	        //+" auth: "+ options.auth
+	        );
 		
 		
 		delete options.headers.host;
@@ -156,82 +157,85 @@ var nps = http.createServer(function(request, response) {
 		var couchdbRequest = protocol.request(options, function(couchdbResponse) {			
 			console.log('couchdbResponse STATUS: ' + couchdbResponse.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse.headers));
 			if (mode_cached !== true){
-				console.log('response: forward for '+resource_path+' ...');
 				//case 2 - answering with CouchDB response
+				console.log('response: forward for '+resource_path+' ...');
 				response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
 				couchdbResponse.on("data", response.write.bind(response)); 
 				couchdbResponse.on("end", function() {
 					response.addTrailers(couchdbResponse.trailers);
 					response.end();
 				});
-			}else{
-				if (couchdbResponse.statusCode !== 404){
-					//TODO check if there is update
-					console.log('response: Cache hit for '+resource_path);
-					//case 2 - answering with CouchDB response
-					response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
-					couchdbResponse.on("data", response.write.bind(response)); 
-					couchdbResponse.on("end", function() {
-						response.addTrailers(couchdbResponse.trailers);
-						response.end();
-					});					
-				}else{//couchdbResponse.statusCode == 404
-					// IDEA can I get response from Registry, give to client and in the same time write to db, i.e. archive that without replication?
-					
-					console.log('REP Starting replication '+resource_path+' ...');
-					
-					//replication
-					var options = {
-					  hostname: CouchDB_server_URL,
-					  port: 5984,
-					  path: '/_replicate', 
-					  method: 'POST',
-					  headers: { 'content-type': 'application/json' }
-					};
-					// see below at req.write
-					var json_replication_string = '{"source":"'+registry_URL+'", "target":"'+db_cached+'", "doc_ids":["'+resource_path+'"]}';
-					var req = http.request(options, function(res) {
-					  console.log('REP STATUS: ' + res.statusCode +' REP HEADERS: ' + JSON.stringify(res.headers) );
-					  res.setEncoding('utf8');
-					  res.on('data', function (chunk) {
-					    console.log('REP BODY: ' + chunk);
-					  });
-					  //++
-					  res.on('end', function (anything) {
-						  console.log('res end of replication '+resource_path);
-						  //create new request to couchDB and return its result to npm client
-						  var couchdbRequest2 = protocol.request(options, function(couchdbResponse2) {
-							  console.log('2 STATUS: ' + couchdbResponse2.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse2.headers));
-
-							  //case 3 - answering with newly replicated data
-							  response.writeHead(couchdbResponse2.statusCode, couchdbResponse2.headers);
-							  couchdbResponse2.on("data", response.write.bind(response)); 
-							  couchdbResponse2.on("end", function() {
-								  console.log('couchdbResponse2 end');
-								  // TODO do we need?
-								  //response.addTrailers(couchdbResponse2.trailers);
-								  response.end();
-								
-							  });							  
-						  });//couchdbRequest2					  
-					  });//replication  responseListener
-					  
-					});
-					//req.on('error', function(e) {
-					//  console.log('problem with request: ' + e.message);
-					//});
-					req.write(json_replication_string);
-					//req.write('{"source":"http://registry.npmjs.org/", "target":"npm-mirror", "doc_ids":["10ctl"], "connection_timeout": 60000, "retries_per_request": 20, "http_connections": 30}');
-					req.end();
-				};
-			}//mode_cached == true
+				return;
+			}
+			//else{
+			if (couchdbResponse.statusCode !== 404){
+				//TODO check if there is update
+				//case 2 - answering with CouchDB response
+				console.log('response: Cache hit for '+resource_path);
+				response.writeHead(couchdbResponse.statusCode, couchdbResponse.headers);
+				couchdbResponse.on("data", response.write.bind(response)); 
+				couchdbResponse.on("end", function() {
+					response.addTrailers(couchdbResponse.trailers);
+					response.end();
+				});	
+				return;
+			}
+			//else{//couchdbResponse.statusCode == 404
+			// IDEA can I get response from Registry, give to client and in the same time write to db, i.e. archive that without replication?
+			
+			console.log('REP Starting replication '+resource_path+' ...');
+			
+			//replication
+			var options = {
+			  hostname: CouchDB_server_URL,
+			  port: 5984,
+			  path: '/_replicate', 
+			  method: 'POST',
+			  headers: { 'content-type': 'application/json' }
+			};
+			// replication request
+			// client will receive response from CouchDB, but after replication request is succeeded and replication is finished
+			var repreq = http.request(options, function(res) {
+				console.log('REP STATUS: ' + res.statusCode +' REP HEADERS: ' + JSON.stringify(res.headers) );
+				res.setEncoding('utf8');
+				res.on('data', function (chunk) {
+					console.log('REP BODY: ' + chunk);
+				});
+				res.on('end', function (anything) {
+					console.log('res end of replication '+resource_path);
+					//create new request to couchDB and return its result to npm client
+					var couchdbRequest2 = protocol.request(options, function(couchdbResponse2) {
+						console.log('2 STATUS: ' + couchdbResponse2.statusCode+' HEADERS: ' + JSON.stringify(couchdbResponse2.headers));
+						//case 3 - answering with newly replicated data
+						response.writeHead(couchdbResponse2.statusCode, couchdbResponse2.headers);
+						couchdbResponse2.on("data", response.write.bind(response)); 
+						couchdbResponse2.on("end", function() {
+							console.log('couchdbResponse2 end');
+							// TODO do we need?
+							//response.addTrailers(couchdbResponse2.trailers);
+							response.end();
+							
+						});							  
+					});//couchdbRequest2					  
+				});//replication  responseListener
+			}); //http.request
+			//repreq.write('{"source":"http://registry.npmjs.org/", "target":"npm-mirror", "doc_ids":["10ctl"], "connection_timeout": 60000, "retries_per_request": 20, "http_connections": 30}');
+			var json_replication_string = '{"source":"'+registry_URL+'", "target":"'+db_cached+'", "doc_ids":["'+resource_path+'"]}';
+			repreq.write(json_replication_string);
+			repreq.end();
+			
+			//req.on('error', function(e) {
+			//  console.log('problem with request: ' + e.message);
+			//});
+			//};
+			//}//mode_cached == true
 		});//couchdbRequest
 		request.on("data", couchdbRequest.write.bind(couchdbRequest)); 
 		request.on("end", couchdbRequest.end.bind(couchdbRequest)); 
 	//}
 }).listen(npm_proxy_server_port);
 
-nps.on('error(nps)', function(err) {
+nps.on('error', function(err) {
 	  // handle async errors here
 	console.log('ERROR: '+JSON.stringify(err));
 });
