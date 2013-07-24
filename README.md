@@ -2,7 +2,7 @@
 [npm-proxy](https://github.com/PaulVI/npm-proxy/)
 -->
 
-# NPM Proxy Server ( NPS ? )
+# Node Package Server ( NPS )
 
 Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.html) [registry](https://npmjs.org) repository.
 
@@ -73,7 +73,7 @@ Now your npm requests go through npm-proxy.
 ![Erlang_emulator](public/Erlang_emulator.png)
 3. CouchDB Futon UI can be very useful. Open <code>http://localhost:5984/_utils/index.html</code>
 4. main file is 'nps.js'. Run it with `node nps.js`.
-   Recommended is node-dev: install with `npm install -g node-dev` ; run with `node-dev npm` .
+   Recommended is node-dev: install with `npm install -g node-dev` ; run with `node-dev nps` .
 5. [Mozilla Firefox add-on JsonShow](https://addons.mozilla.org/en-US/firefox/addon/jsonshow) is highly recommended to see JSON in human friendly way.
 	Press Ctrl+Q after installation at any URL to see it as formated and colorized JSON tree.	
 
