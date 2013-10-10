@@ -1,13 +1,20 @@
 // Node Package Server (NPS) by Paul Verest, 2013
+var npm_proxy_server_name = 'Node Package Server v0.3.0';
 
 //configuration {servers, paths and database names}
-//var registry_URL = "http://registry.npmjs.org";
-var registry_URL = "http://isaacs.iriscouch.com/registry/"; // use HTTP URL
-var npm_proxy_server_name = 'Node Package Server v0.1.0';
-var npm_proxy_server_URL = 'localhost';
-var npm_proxy_server_port = 6084;
-var CouchDB_server_URL = 'localhost';
-var couchDB_server_port = 5984;
+var config = require("./nps-config");
+
+//imports
+var url = require("url");
+var http = require("http");
+//var https = require("https");
+
+//init
+var registry_URL = config.registry_URL; //"http://isaacs.iriscouch.com/registry/"; // use HTTP URL
+var npm_proxy_server_URL = config.npm_proxy_server_URL; //'localhost';
+var npm_proxy_server_port = config.npm_proxy_server_port; //6084;
+var CouchDB_server_URL = config.CouchDB_server_URL; //'localhost';
+var couchDB_server_port = config.couchDB_server_port; //5984;
 
 var path_cached = "/nps-cached/";	// cached from registry - main mode
 var path_hosted = "/nps-hosted/";
@@ -21,12 +28,6 @@ var db_cached = "nps_cached";
 var db_hosted = "nps_hosted";
 var db_mirror = "nps_mirror";
 
-//imports
-var url = require("url");
-var http = require("http");
-//var https = require("https");
-
-//init
 // create CouchDB databases:
 var dbs = [db_cached,db_hosted,db_mirror];
 // create DB from command line:
