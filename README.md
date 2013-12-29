@@ -19,7 +19,8 @@ Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.h
 
 ## Problem addressed
 
-Registry as of May 20th 2013 is 44G of data in 30k projects. (Just navigate to <code>https://registry.npmjs.org/</code>)  
+Registry as of Dec 2013 is 175G in 60k projects (Just navigate to <code>https://registry.npmjs.org/</code>), data grew 10x in 2013, and currently grows 10G per week.
+( In May 20th 2013 there 44G of data in 30k projects).   
 Most development teams don't need 99% of those packages, but quick & reliable access to those being used. 
 Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) 
 is clone Registry into new Repository (using continuous replication).  
@@ -27,21 +28,21 @@ On slow channels replication can't be finished within one session / one attempt.
 But the most important is that every such attempt makes Registry even slower, as ongoing replication creates additional pressure on Registry server 
 and uses the same slow channel.
 
-[Commercial alternative, that uses different approach](http://blog.strongloop.com/whats-new-in-strong-loop-node-beta-3-private-repositories/)
+There is [Commercial alternative, that uses different approach](http://blog.strongloop.com/whats-new-in-strong-loop-node-beta-3-private-repositories/), but again
+you depend for Internet connectivity and vulnarable if that curvice is down or degradates.
+
+Most team use the same modules, and once one developer get's module,
+other developer should be able to get the same module with near LAN speed.
 
 ## Status 
 
-This is work in progress. (Version 0.0.6)
-Now it is just ideas, some materials and occasionally failing code.. 
-
-Please contact Paul Verest via skype <code>pverest</code>, email ![email](public/weibl-funshion-com2.PNG)
- or call <code>+86 187 01029146</code>, if you are interested.
+This are some materials, code and some ideas.. 
+Raise an isse, or contact Paul Verest via skype <code>pverest</code>..
  
-Come to [Coding Sunday in Beijing](http://www.meetup.com/BeijingSoftwareCraftsmanship/events/116554072) 
 
 ## Usage
 
-If you want only to use it, then bookmark (Ctrl+D) and/or star it now and return in June 2013.
+Give the project a star.
 
 0. Install [CouchDB server](http://couchdb.apache.org/#download).
 	There is quick installer for Windows since version 1.2  
