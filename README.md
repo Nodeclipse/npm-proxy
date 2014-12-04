@@ -19,8 +19,11 @@ Proxy for [Node.js](http://www.nodejs.org/) [NPM](https://npmjs.org/doc/README.h
 
 ## Problem addressed
 
-Registry as of Dec 2013 is 175G in 60k projects (Just navigate to <code>https://registry.npmjs.org/</code>), data grew 10x in 2013, and currently grows 10G per week.
-( In May 20th 2013 there 44G of data in 30k projects).   
+Registry as of Dec 2014 is 418G in 116k  
+(as of Dec 2013 is 175G in 60k projects,  
+In May 20th 2013 there 44G of data in 30k projects).
+Just navigate to <code>https://registry.npmjs.org/</code>), data grew 10x in 2013, and currently grows 10G per week.
+
 Most development teams don't need 99% of those packages, but quick & reliable access to those being used. 
 Current [recommendation to speed up access](https://github.com/isaacs/npm/blob/master/doc/cli/registry.md#can-i-run-my-own-private-registry) 
 is clone Registry into new Repository (using continuous replication).  
@@ -33,6 +36,9 @@ you depend for Internet connectivity and vulnarable if that curvice is down or d
 
 Most team use the same modules, and once one developer get's module,
 other developer should be able to get the same module with near LAN speed.
+
+> NPM components are on track for 4 billion downloads a year.
+see at <http://blog.sonatype.com/2014/11/the-billion-club/>
 
 ## Status 
 
